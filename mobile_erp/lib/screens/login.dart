@@ -1,10 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'dart:convert';
-import 'package:erp_mobile/uipage/dashboard.dart';
-import 'package:erp_mobile/uipage/main_dash.dart';
-import 'package:erp_mobile/uipage/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'dashboard.dart';
+import 'signup.dart';
 
 void main() {}
 
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignupPage()));
+                                    builder: (context) => SignUp()));
                           },
                         ),
                       ],

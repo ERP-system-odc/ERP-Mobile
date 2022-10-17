@@ -1,6 +1,5 @@
-import 'package:erp_mobile/uipage/dashboard.dart';
-import 'package:erp_mobile/uipage/login.dart';
 import 'package:flutter/material.dart';
+import 'screens/login.dart';
 
 void main() => runApp(myApp());
 
