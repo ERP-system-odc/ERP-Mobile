@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextFormField(
                   //autofocus: false,
-                  validator: (value) => value!.isEmpty ? 'please enter' : null,
+                  //validator: (value) => value!.isEmpty ? 'please enter' : null,
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(

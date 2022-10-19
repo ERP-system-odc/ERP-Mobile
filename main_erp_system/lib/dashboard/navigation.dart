@@ -16,6 +16,8 @@ class NavBar extends StatelessWidget {
                 child: Image.asset(
                   "images/pp.png",
                   fit: BoxFit.cover,
+                  height: 90,
+                  width: 90,
                 ),
               ),
             ),

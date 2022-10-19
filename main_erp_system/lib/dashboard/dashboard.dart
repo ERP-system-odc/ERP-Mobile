@@ -41,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavBar(),
+      drawer: const NavBar(),
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: const Text('Dashboard'),
         actions: [
           IconButton(
               icon: Icon(_dashboardState.themeNotifier.value == ThemeMode.light
