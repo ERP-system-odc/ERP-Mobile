@@ -13,13 +13,14 @@ class NavBar extends StatelessWidget {
             accountEmail: Text('"spacepro@gmail.com"'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.asset(
-                  "images/pp.png",
-                  fit: BoxFit.cover,
-                  height: 90,
-                  width: 90,
-                ),
-              ),
+
+                  // child: Image.asset(
+                  //   "images/pp.png",
+                  //   fit: BoxFit.contain,
+                  //   height: 90,
+                  //   width: 90,
+                  // ),
+                  ),
             ),
           ),
           ListTile(

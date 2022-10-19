@@ -63,48 +63,50 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       //padding: const EdgeInsets.all(30),
       body: Container(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 3,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          hexStringToColor('2196F3'),
-                          hexStringToColor("2196F3"),
-                        ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        hexStringToColor('2196F3'),
+                        hexStringToColor("2196F3"),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                      bottomLeft: Radius.circular(50),
+                    )),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        "assets/images/pp.png",
+                        color: Color(0xFFFFFFFF),
+                        height: 200,
+                        fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(100),
-                        bottomLeft: Radius.circular(100),
-                      )),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          "assets/images/pp.png",
-                          color: Color(0xFFFFFFFF),
-                          height: 200,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextFormField(
                   controller: nameController,
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
@@ -118,10 +120,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     prefixIcon: Icon(Icons.person, color: Color(0xFF2196F3)),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -135,10 +140,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     prefixIcon: Icon(Icons.email, color: Color(0xFF2196F3)),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextFormField(
                   controller: phnoController,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
@@ -152,12 +160,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     prefixIcon: Icon(Icons.phone, color: Color(0xFF2196F3)),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextFormField(
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                   decoration: const InputDecoration(
                     labelText: "Password",
                     border: OutlineInputBorder(
@@ -171,10 +183,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         Icon(Icons.remove_red_eye, color: Color(0xFF2196F3)),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: TextFormField(
                   controller: confirmpassController,
                   keyboardType: TextInputType.visiblePassword,
                   obscureText: true,
@@ -191,10 +206,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         Icon(Icons.remove_red_eye, color: Color(0xFF2196F3)),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Container(
                   height: 60,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -225,11 +243,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
         ),
       ),
