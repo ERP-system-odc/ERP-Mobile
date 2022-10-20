@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
     print(email);
-    // runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
+    runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
   }
 
   @override
@@ -50,9 +50,10 @@ class _LoginScreenState extends State<LoginScreen> {
           //Fluttertoast();
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const dashboard()));
-          // } else {
-          //   print('failed');
-          // }
+        } else {
+          final snackBar = SnackBar(
+            content: Text(['message'].toString().trim()),
+          );
         }
       } catch (e) {
         print(e.toString());
@@ -176,12 +177,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
                 ),
                 child: MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     login(emailController.text.toString(),
                         passwordController.text.toString());
 
-                    //Navigator.push(context,
-                    //MaterialPageRoute(builder: (context) => dashboard()));
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('email', 'useremail@gmail.com');
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (BuildContext ctx) => dashboard()));
                   },
                   child: const Text(
                     "LOGIN",

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/dashboard/navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart';
+
+void main() {
+  runApp(const dashboard());
+}
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
@@ -57,7 +64,18 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
         ],
       ),
-      body: Center(),
+      body: Center(
+          // child: RaisedButton(
+          //   onPressed: () async {
+          //     SharedPreferences prefs = await SharedPreferences.getInstance();
+          //     prefs.remove('email');
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //             builder: (BuildContext ctx) => LoginScreen()));
+          //   },
+          // ),
+          ),
     );
   }
 }
