@@ -231,6 +231,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           phnoController.text.toString(),
                           passwordController.text.toString(),
                           confirmpassController.text.toString());
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext ctx) => dashboard()));
                     },
                     child: const Text(
                       "SIGNUP",

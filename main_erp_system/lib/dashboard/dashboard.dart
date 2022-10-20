@@ -16,6 +16,11 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
+  //final CategoriesScroller categoriesScroller = CategoriesScroller();
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+  double topContainer = 0;
+
   static final ValueNotifier<ThemeMode> themeNotifier =
       ValueNotifier(ThemeMode.light);
 
@@ -45,8 +50,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //const CategoriesScroller();
   @override
   Widget build(BuildContext context) {
+    final double categoryHeight =
+        MediaQuery.of(context).size.height * 0.30 - 50;
     return Scaffold(
       drawer: const NavBar(),
       appBar: AppBar(
@@ -64,18 +72,201 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
         ],
       ),
-      body: Center(
-          // child: RaisedButton(
-          //   onPressed: () async {
-          //     SharedPreferences prefs = await SharedPreferences.getInstance();
-          //     prefs.remove('email');
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (BuildContext ctx) => LoginScreen()));
-          //   },
-          // ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+          child: FittedBox(
+            fit: BoxFit.fill,
+            alignment: Alignment.topCenter,
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 220,
+                  margin: EdgeInsets.only(right: 20),
+                  height: categoryHeight,
+                  decoration: BoxDecoration(
+                      color: Colors.green,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 6,
+                          blurRadius: 7,
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "most\nFavorites",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "20 Items",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          ' 284501.678%',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 220,
+                  margin: EdgeInsets.only(right: 20),
+                  height: categoryHeight,
+                  decoration: BoxDecoration(
+                      color: Colors.orange,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 6,
+                          blurRadius: 7,
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "most\nFavorites",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "20 Items",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          ' 76400.0332%',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 220,
+                  margin: EdgeInsets.only(right: 20),
+                  height: categoryHeight,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF2196F3),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 6,
+                          blurRadius: 7,
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "most\nFavorites",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "20 Items",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          ' 52383.00992%',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 220,
+                  margin: EdgeInsets.only(right: 20),
+                  height: categoryHeight,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
+                          spreadRadius: 6,
+                          blurRadius: 7,
+                          offset: Offset(0, 4),
+                        )
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "most\nFavorites",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "20 Items",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          ' 554.02%',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
+        ),
+      ),
     );
   }
 }
