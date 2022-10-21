@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:main_erp_system/Auth/Signup.dart';
 import 'package:main_erp_system/dashboard/dashboard.dart';
@@ -15,6 +16,8 @@ class LoginScreen extends StatefulWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
     print(email);
+    // var token = prefs.getString('access-token');
+    // print(token);
     runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
   }
 
@@ -44,9 +47,10 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         print(jsonDecode(response.body.toString()));
         if (response.statusCode == 200) {
-          // var data = jsonDecode(response.body.toString());
-          // print(data);
+          var data = jsonDecode(response.body);
+          print(data);
           print('you are loged in');
+
           //Fluttertoast();
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const dashboard()));

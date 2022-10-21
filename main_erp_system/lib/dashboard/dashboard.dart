@@ -116,9 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           "20 Items",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
                         Text(
                           ' 284501.678%',
                           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -161,9 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           "20 Items",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
                         Text(
                           ' 76400.0332%',
                           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -206,9 +203,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           "20 Items",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
                         Text(
                           ' 52383.00992%',
                           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -251,9 +248,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           "20 Items",
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
                         Text(
                           ' 554.02%',
                           style: TextStyle(fontSize: 20, color: Colors.white),
