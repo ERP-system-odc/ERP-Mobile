@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:main_erp_system/Auth/Signup.dart';
@@ -6,6 +8,7 @@ import 'package:main_erp_system/utils/color_utils.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,6 +21,12 @@ class LoginScreen extends StatefulWidget {
     print(email);
     // var token = prefs.getString('access-token');
     // print(token);
+    var token;
+    addTokenToSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('access-token', token);
+    }
+
     runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
   }
 
@@ -29,6 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  // Object? get tokenValue => null;
+  // getTokenFromSF() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var tokenValue = prefs.getString('access-token');
+  //   return tokenValue;
+  // }
+
   void login(
     String email,
     password,
@@ -39,25 +55,36 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': password,
       });
 
-      Response response = await post(
+      Response response = await http.post(
+          Uri.parse('http://localhost:5000/api/auth/signin'),
+          headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+          body: myBody);
+
+      var request = await http.post(
           Uri.parse('http://localhost:5000/api/auth/signin'),
           headers: {HttpHeaders.contentTypeHeader: 'application/json'},
           body: myBody);
 
       try {
-        print(jsonDecode(response.body.toString()));
+        //print(jsonDecode(response.body.toString()));
         if (response.statusCode == 200) {
-          var data = jsonDecode(response.body);
-          print(data);
-          print('you are loged in');
+          if (request.statusCode == 200) {
+            print(json.decode(request.body));
+            var token = json.decode(request.body)["access-token"];
+            print('this is your token ' + token);
 
-          //Fluttertoast();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const dashboard()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const dashboard()));
+          } else {
+            print('\n token faild \n');
+          }
+
+          // var data = jsonDecode(response.body);
+          // //token = json.decode(re)
+          // print(data);
+          // print('you are loged in');
         } else {
-          final snackBar = SnackBar(
-            content: Text(['message'].toString().trim()),
-          );
+          print('faild to Login ');
         }
       } catch (e) {
         print(e.toString());
@@ -97,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Image.asset(
-                      "assets/images/pp.png",
+                      "assets/images/loe.png",
                       color: Color(0xFFFFFFFF),
                       height: 200,
                       fit: BoxFit.contain,

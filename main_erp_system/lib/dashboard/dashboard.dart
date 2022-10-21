@@ -102,23 +102,43 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                "CAPITAL",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              radius: 22,
+                              child: Icon(
+                                Icons.money_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text(
-                          "most\nFavorites",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                          " \$5K",
+                          style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "20 Items",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
-                        Text(
-                          ' 284501.678%',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          '    15%',
+                          style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                       ],
                     ),
@@ -144,26 +164,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "most\nFavorites",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                        Row(
+                          children: [
+                            Text(
+                              "TOTAL PROFIT",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              radius: 22,
+                              child: Icon(
+                                Icons.money_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "20 Items",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          " \$21K",
+                          style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Text(
-                          ' 76400.0332%',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          '    30%',
+                          style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                       ],
                     ),
@@ -189,26 +224,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "most\nFavorites",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                        Row(
+                          children: [
+                            Text(
+                              "TOTAL PROGRESS",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 22,
+                              child: Icon(
+                                Icons.money_outlined,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "20 Items",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          " \$51K",
+                          style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
                         // SizedBox(
                         //   height: 20,
                         // ),
                         Text(
-                          ' 52383.00992%',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          '    49%',
+                          style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                       ],
                     ),
@@ -234,26 +284,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "most\nFavorites",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                        Row(
+                          children: [
+                            Text(
+                              "TOTAL EXPENSE",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              radius: 22,
+                              child: Icon(
+                                Icons.money_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "20 Items",
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          " \$17K",
+                          style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
                         // SizedBox(
                         //   height: 20,
                         // ),
                         Text(
-                          ' 554.02%',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          '    29%',
+                          style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                       ],
                     ),

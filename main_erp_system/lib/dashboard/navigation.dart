@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:main_erp_system/Auth/Login.dart';
+import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -35,9 +36,14 @@ class NavBar extends StatelessWidget {
             onTap: () => print('Fav'),
           ),
           ListTile(
-            leading: Icon(Icons.add),
-            title: Text('Add'),
-            onTap: () => print('add'),
+            leading: Icon(Icons.category),
+            title: Text('Inventory'),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => Inventory())),
+            },
           ),
           ListTile(
             //tileColor: Colors.amber,
