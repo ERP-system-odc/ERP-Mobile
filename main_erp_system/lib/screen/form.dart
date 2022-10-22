@@ -14,6 +14,7 @@ class _FormState extends State<form_page> {
   TextEditingController businessSubType = TextEditingController();
   TextEditingController tinNumber = TextEditingController();
   String tinNumbererror = "";
+  
   bool validateStructure(String value) {
     String pattern = r'^([0-9])';
     RegExp regExp = new RegExp(pattern);

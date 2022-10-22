@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
+import 'package:main_erp_system/screen/form.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -43,6 +44,16 @@ class NavBar extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext ctx) => Inventory())),
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add),
+            title: Text('Register'),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => form_page())),
             },
           ),
           ListTile(

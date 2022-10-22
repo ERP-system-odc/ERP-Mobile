@@ -126,9 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
                         Text(
                           " \$5K",
                           style: TextStyle(fontSize: 35, color: Colors.white),
@@ -169,12 +169,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text(
                               "TOTAL PROFIT",
                               style: TextStyle(
-                                  fontSize: 22,
+                                  fontSize: 18,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 22,
                             ),
                             CircleAvatar(
                               backgroundColor: Colors.blue,
@@ -193,9 +193,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           " \$21K",
                           style: TextStyle(fontSize: 35, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
                         Text(
                           '    30%',
                           style: TextStyle(fontSize: 17, color: Colors.white),

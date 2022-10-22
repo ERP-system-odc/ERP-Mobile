@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:main_erp_system/Auth/Signup.dart';
@@ -124,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Image.asset(
-                      "assets/images/loe.png",
+                      "assets/images/pp.png",
                       color: Color(0xFFFFFFFF),
                       height: 200,
                       fit: BoxFit.contain,
