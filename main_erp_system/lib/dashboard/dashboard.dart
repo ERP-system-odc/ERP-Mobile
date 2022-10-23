@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/dashboard/navigation.dart';
+import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -32,7 +33,7 @@ class _dashboardState extends State<dashboard> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: Colors.blue,
+              primarySwatch: buildMaterialColor(Color(0xFF5048E5)),
             ),
             darkTheme: ThemeData.dark(),
             themeMode: currentMode,
@@ -120,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               backgroundColor: Colors.blue,
                               radius: 22,
                               child: Icon(
-                                Icons.money_outlined,
+                                Icons.account_balance,
                                 color: Colors.white,
                               ),
                             ),

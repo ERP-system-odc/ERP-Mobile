@@ -1,36 +1,84 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:main_erp_system/utils/color_utils.dart';
+import 'package:main_erp_system/Auth/Login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Inventory extends StatefulWidget {
+class form_pagee extends StatefulWidget {
   @override
-  State<Inventory> createState() => _InventoryState();
+  State<form_pagee> createState() => _FormState();
 }
 
-class _InventoryState extends State<Inventory> {
-  TextEditingController materialController = TextEditingController();
-  TextEditingController measurementType = TextEditingController();
-  TextEditingController price = TextEditingController();
-  TextEditingController amount = TextEditingController();
-  TextEditingController critical_amount = TextEditingController();
+class _FormState extends State<form_pagee> {
+  TextEditingController business_name = TextEditingController();
+  // TextEditingController livingaddress = TextEditingController();
+  TextEditingController business_type = TextEditingController();
+  TextEditingController business_sub_type = TextEditingController();
+  TextEditingController business_capital = TextEditingController();
+  TextEditingController tin_number = TextEditingController();
+  String tinNumbererror = "";
+
+  void register(
+    String business_name,
+    business_type,
+    business_sub_type,
+    business_capital,
+    tin_number,
+  ) async {
+    try {
+      final mybody1 = json.encode({
+        "business_name": business_name,
+        "business_type	": business_type,
+        "business_sub_type": business_sub_type,
+        "business_capital": business_capital,
+        "tin_number": tin_number,
+      });
+
+      Response response = await post(
+          Uri.parse('http://localhost:5000/api/firmDefinition/defineFirm/'),
+          headers: {
+            HttpHeaders.contentTypeHeader: 'application/json',
+          },
+          body: mybody1);
+
+      try {
+        if (response.statusCode == 200) {
+          print('you added your business');
+        } else {
+          print(response.statusCode);
+          print('faild to load');
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  bool validateStructure(String value) {
+    String pattern = r'^([0-9])';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
+  String selectedBusiness = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Please Add Materials here"),
+        backgroundColor: Color(0xFF5048E5),
       ),
       body: Center(
           child: SingleChildScrollView(
         child: (Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.person,
-              size: 100,
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -38,54 +86,7 @@ class _InventoryState extends State<Inventory> {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'name of material',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.precision_manufacturing,
-                      color: Color(0xFF5048E5)),
-                ),
-                controller: materialController,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: ' Price in piece ',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.money, color: Color(0xFF5048E5)),
-                ),
-                controller: price,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: ' least critical Amount ',
+                  labelText: 'Business name',
                   labelStyle: TextStyle(
                     color: Color(0xFF5048E5),
                   ),
@@ -96,9 +97,9 @@ class _InventoryState extends State<Inventory> {
                       borderSide:
                           BorderSide(color: Color(0xFF5048E5), width: 2.0)),
                   suffixIcon:
-                      Icon(Icons.cached_rounded, color: Color(0xFF5048E5)),
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: critical_amount,
+                controller: business_name,
                 keyboardType: TextInputType.text,
               ),
             ),
@@ -109,7 +110,7 @@ class _InventoryState extends State<Inventory> {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'measured in..',
+                  labelText: 'Busines Type',
                   labelStyle: TextStyle(
                     color: Color(0xFF5048E5),
                   ),
@@ -119,9 +120,10 @@ class _InventoryState extends State<Inventory> {
                   enabledBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.balance, color: Color(0xFF5048E5)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: measurementType,
+                controller: business_type,
                 keyboardType: TextInputType.text,
               ),
             ),
@@ -132,7 +134,7 @@ class _InventoryState extends State<Inventory> {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'amount (quantitty)',
+                  labelText: 'Business sub Type',
                   labelStyle: TextStyle(
                     color: Color(0xFF5048E5),
                   ),
@@ -142,9 +144,58 @@ class _InventoryState extends State<Inventory> {
                   enabledBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.numbers, color: Color(0xFF5048E5)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: amount,
+                controller: business_sub_type,
+                keyboardType: TextInputType.text,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'capital',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                ),
+                controller: business_capital,
+                keyboardType: TextInputType.text,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Tin Number',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                ),
+                controller: tin_number,
                 keyboardType: TextInputType.text,
               ),
             ),
@@ -165,11 +216,18 @@ class _InventoryState extends State<Inventory> {
                   ]),
                 ),
                 child: MaterialButton(
-                  onPressed: () {
-                    insert();
+                  onPressed: () async {
+                    register(
+                      business_name.text.toString(),
+                      business_type.text.toString(),
+                      business_sub_type.text.toString(),
+                      business_capital.text.toString(),
+                      tin_number.text.toString(),
+                      // tinNumbererror.text.toString(),
+                    );
                   },
                   child: const Text(
-                    "SIGNUP",
+                    "Submit",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -180,51 +238,56 @@ class _InventoryState extends State<Inventory> {
                 ),
               ),
             ),
-            // Container(
-            //   color: const Color(0xFF5048E5),
-            //   child: SizedBox(
-            //     width: 200,
-            //     height: 50,
-            //     child: TextButton(
-            //         onPressed: () {
-            //           insert();
-            //         },
-            //         child: const Text(
-            //           "Submit",
-            //           style: TextStyle(color: Colors.white),
-            //         )),
-            //   ),
-            // )
           ],
         )),
       )),
     );
   }
 
-  Future<void> insert() async {
-    var headers = {
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdmNWJlYjc0LWE0ZmEtNGJmOS1iOGY3LTE4YWYzYTVlNjQ2NyIsImlzX2FkbWluIjpmYWxzZSwiaWF0IjoxNjY2Mjc5MTY2fQ.IdWp4L2lx9hYIfONJJBIveONEU0cNJe-_j7Gt4pQr6w',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request(
-        'POST', Uri.parse('http://localhost:5000/api/inventory/manage'));
-    request.body = json.encode({
-      "inventory_name": materialController.text,
-      "inventory_price": price.text,
-      "least_critical_amount": critical_amount.text,
-      "inventory_expense": measurementType.text,
-      "inventory_quantity": amount.text,
-    });
-    var jsonresponse = json.decode(request.body);
-    request.headers.addAll(headers);
+  //Future<void> register() async {
+  //var token = jsonDecode('access-token');
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SharedPreferences prefss = await SharedPreferences.getInstance();
+  // var token = prefss.getString('access-token');
+  // print(token);
 
-    http.StreamedResponse response = await request.send();
+  // var request =
+  //     await http.post(Uri.parse('http://localhost:5000/api/auth/signin'),
+  //         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+  //         body: ({
+  //           "business_name": nameController.text,
+  //           "business_sub_type": businessSubType.text,
+  //           "initial_capital": capital.text,
+  //           "tin_number": tinNumber.text
+  //         }));
+  // var token = json.decode(request.body)["access-token"];
+  // print('this is your token ' + token);
 
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
-    }
-  }
+  // var headers = {
+  //   'Authorization': 'Bearer $accessToken',
+  //   'Content-Type': 'application/json'
+  // };
+  // try {
+  //   var request = http.Request(
+  //       'POST',
+  //       Uri.parse(
+  //           'http://localhost:5000/api/firmDefinition/defineFirm/$accessToken'));
+
+  //   request.body = json.encode({
+  //     "business_name": nameController.text,
+  //     "business_sub_type": businessSubType.text,
+  //     "initial_capital": capital.text,
+  //     "tin_number": tinNumber.text
+  //   });
+  //   request.headers.addAll(headers);
+  //   http.StreamedResponse response = await request.send();
+  //   if (response.statusCode == 200) {
+  //     print(await response.stream.bytesToString());
+  //   } else {
+  //     print(response.reasonPhrase);
+  //   }
+  // } catch (e) {
+  //   print(e.toString());
+  // }
+  // }
 }

@@ -1,6 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:main_erp_system/utils/color_utils.dart';
+import 'package:main_erp_system/Auth/Login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class form_page extends StatefulWidget {
   @override
@@ -8,13 +13,53 @@ class form_page extends StatefulWidget {
 }
 
 class _FormState extends State<form_page> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController capital = TextEditingController();
-  TextEditingController livingaddress = TextEditingController();
-  TextEditingController businessSubType = TextEditingController();
-  TextEditingController tinNumber = TextEditingController();
+  TextEditingController business_name = TextEditingController();
+  // TextEditingController livingaddress = TextEditingController();
+  TextEditingController business_type = TextEditingController();
+  TextEditingController business_sub_type = TextEditingController();
+  TextEditingController business_capital = TextEditingController();
+  TextEditingController tin_number = TextEditingController();
   String tinNumbererror = "";
-  
+
+  void register(
+    String business_name,
+    business_type,
+    business_sub_type,
+    business_capital,
+    tin_number,
+  ) async {
+    var accessToken = jsonDecode('access-token');
+    //var accessToken = json.decode(request.body)["access-token"];
+    // print('this is your token ' + token);
+    var headers = {
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
+    try {
+      var request = http.Request(
+          'POST',
+          Uri.parse(
+              'http://localhost:5000/api/firmDefinition/defineFirm/$accessToken'));
+
+      request.body = json.encode({
+        "business_name": business_name,
+        "business_type	": business_type,
+        "business_sub_type": business_sub_type,
+        "business_capital": business_capital,
+        "tin_number": tin_number,
+      });
+      request.headers.addAll(headers);
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   bool validateStructure(String value) {
     String pattern = r'^([0-9])';
     RegExp regExp = new RegExp(pattern);
@@ -22,12 +67,13 @@ class _FormState extends State<form_page> {
   }
 
   String selectedBusiness = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Please Add Materials here"),
-        backgroundColor: Color.fromARGB(255, 80, 72, 229),
+        backgroundColor: Color(0xFF5048E5),
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -42,93 +88,211 @@ class _FormState extends State<form_page> {
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  fillColor: Color(0xff5048E5),
-                  border: OutlineInputBorder(),
                   labelText: 'Business name',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: nameController,
+                controller: business_name,
                 keyboardType: TextInputType.text,
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                  labelText: 'Busines Type',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                ),
+                controller: business_type,
+                keyboardType: TextInputType.text,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: TextFormField(
+                decoration: const InputDecoration(
                   labelText: 'Business sub Type',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: businessSubType,
+                controller: business_sub_type,
                 keyboardType: TextInputType.text,
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
                   labelText: 'capital',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: capital,
+                controller: business_capital,
                 keyboardType: TextInputType.text,
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: TextFormField(
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
                   labelText: 'Tin Number',
+                  labelStyle: TextStyle(
+                    color: Color(0xFF5048E5),
+                  ),
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                  suffixIcon:
+                      Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                 ),
-                controller: tinNumber,
+                controller: tin_number,
                 keyboardType: TextInputType.text,
               ),
             ),
-            Container(
-              color: const Color(0xff5048E5),
-              child: SizedBox(
-                width: 200,
-                height: 50,
-                child: TextButton(
-                    onPressed: () {
-                      register();
-                    },
-                    child: const Text(
-                      "Submit",
-                      style: TextStyle(color: Colors.white),
-                    )),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Container(
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  //color: Color(0xFF42A5F5),
+                  gradient: LinearGradient(colors: [
+                    hexStringToColor('5048E5'),
+                    hexStringToColor("5048E5"),
+                  ]),
+                ),
+                child: MaterialButton(
+                  onPressed: () async {
+                    register(
+                      business_name.text.toString(),
+                      business_type.text.toString(),
+                      business_sub_type.text.toString(),
+                      business_capital.text.toString(),
+                      tin_number.text.toString(),
+                      // tinNumbererror.text.toString(),
+                    );
+                  },
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         )),
       )),
     );
   }
 
-  Future<void> register() async {
-    String accessToken = jsonDecode('access-token');
-    var headers = {
-      'Authorization': 'Bearer $accessToken',
-      'Content-Type': 'application/json'
-    };
-    var request = http.Request(
-        'POST',
-        Uri.parse(
-            'http://localhost:5000/api/firmDefinition/defineFirm/$accessToken'));
-    request.body = json.encode({
-      "business_name": nameController.text,
-      "business_sub_type": businessSubType.text,
-      "initial_capital": capital.text,
-      "tin_number": tinNumber.text
-    });
-    request.headers.addAll(headers);
-    http.StreamedResponse response = await request.send();
-    if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-    } else {
-      print(response.reasonPhrase);
-    }
-  }
+  //Future<void> register() async {
+  //var token = jsonDecode('access-token');
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SharedPreferences prefss = await SharedPreferences.getInstance();
+  // var token = prefss.getString('access-token');
+  // print(token);
+
+  // var request =
+  //     await http.post(Uri.parse('http://localhost:5000/api/auth/signin'),
+  //         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
+  //         body: ({
+  //           "business_name": nameController.text,
+  //           "business_sub_type": businessSubType.text,
+  //           "initial_capital": capital.text,
+  //           "tin_number": tinNumber.text
+  //         }));
+  // var token = json.decode(request.body)["access-token"];
+  // print('this is your token ' + token);
+
+  // var headers = {
+  //   'Authorization': 'Bearer $accessToken',
+  //   'Content-Type': 'application/json'
+  // };
+  // try {
+  //   var request = http.Request(
+  //       'POST',
+  //       Uri.parse(
+  //           'http://localhost:5000/api/firmDefinition/defineFirm/$accessToken'));
+
+  //   request.body = json.encode({
+  //     "business_name": nameController.text,
+  //     "business_sub_type": businessSubType.text,
+  //     "initial_capital": capital.text,
+  //     "tin_number": tinNumber.text
+  //   });
+  //   request.headers.addAll(headers);
+  //   http.StreamedResponse response = await request.send();
+  //   if (response.statusCode == 200) {
+  //     print(await response.stream.bytesToString());
+  //   } else {
+  //     print(response.reasonPhrase);
+  //   }
+  // } catch (e) {
+  //   print(e.toString());
+  // }
+  // }
 }

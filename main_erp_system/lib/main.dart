@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/dashboard/dashboard.dart';
 import 'package:main_erp_system/Auth/Login.dart';
+import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // void main() {
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: ".ERP System",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: buildMaterialColor(Color(0xFF5048E5)),
       ),
       home: LoginScreen(
           //body: LoginScreen(),

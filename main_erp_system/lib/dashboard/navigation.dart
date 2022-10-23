@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:main_erp_system/screen/form.dart';
+import 'package:main_erp_system/screen/formex.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -60,8 +61,13 @@ class NavBar extends StatelessWidget {
             //tileColor: Colors.amber,
             //textColor: Color.fromARGB(255, 33, 150, 243),
             leading: Icon(Icons.language),
-            title: Text('Language'),
-            onTap: () => print('language'),
+            title: Text('form example'),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => form_pagee())),
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout_sharp),

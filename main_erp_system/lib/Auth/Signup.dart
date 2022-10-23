@@ -60,6 +60,10 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  static const emailRegex =
+      r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,192 +71,253 @@ class _SignupScreenState extends State<SignupScreen> {
       //padding: const EdgeInsets.all(30),
       body: Container(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        hexStringToColor('2196F3'),
-                        hexStringToColor("2196F3"),
-                      ],
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(50),
-                      bottomLeft: Radius.circular(50),
-                    )),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Image.asset(
-                        "assets/images/pp.png",
-                        color: Color(0xFFFFFFFF),
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: nameController,
-                  keyboardType: TextInputType.name,
-                  decoration: const InputDecoration(
-                    labelText: "Full Name",
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    prefixIcon: Icon(Icons.person, color: Color(0xFF2196F3)),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    prefixIcon: Icon(Icons.email, color: Color(0xFF2196F3)),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: phnoController,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                    labelText: "Phone No",
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    prefixIcon: Icon(Icons.phone, color: Color(0xFF2196F3)),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF2196F3)),
-                    suffixIcon:
-                        Icon(Icons.remove_red_eye, color: Color(0xFF2196F3)),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: TextFormField(
-                  controller: confirmpassController,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: "Confirm Password",
-                    border: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xFF2196F3), width: 2.0)),
-                    prefixIcon: Icon(Icons.lock, color: Color(0xFF2196F3)),
-                    suffixIcon:
-                        Icon(Icons.remove_red_eye, color: Color(0xFF2196F3)),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Container(
-                  height: 60,
-                  width: double.infinity,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 3,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    //color: Color(0xFF42A5F5),
-                    gradient: LinearGradient(colors: [
-                      hexStringToColor('2196F3'),
-                      hexStringToColor("2196F3"),
-                    ]),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          hexStringToColor('5048E5'),
+                          hexStringToColor("5048E5"),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(50),
+                        bottomLeft: Radius.circular(50),
+                      )),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          "assets/images/pp.png",
+                          color: Color(0xFFFFFFFF),
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
                   ),
-                  child: MaterialButton(
-                    onPressed: () {
-                      login(
-                          nameController.text.toString(),
-                          emailController.text.toString(),
-                          phnoController.text.toString(),
-                          passwordController.text.toString(),
-                          confirmpassController.text.toString());
-
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (BuildContext ctx) => dashboard()));
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "we need your name Sir!";
+                      }
                     },
-                    child: const Text(
-                      "SIGNUP",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
-                        color: Colors.white,
+                    controller: nameController,
+                    keyboardType: TextInputType.name,
+                    decoration: const InputDecoration(
+                      labelText: "Full Name",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF5048E5),
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      prefixIcon: Icon(Icons.person, color: Color(0xFF5048E5)),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "email is required";
+                      } else if (RegExp(emailRegex).hasMatch(value)) {
+                        return "email can not be empty";
+                      } else {
+                        return "please enter a valid email!";
+                      }
+                    },
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: "Email",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF5048E5),
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      prefixIcon: Icon(Icons.email, color: Color(0xFF5048E5)),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "we need your Phone Sir!";
+                      }
+                    },
+                    controller: phnoController,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      labelText: "Phone No",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF5048E5),
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      prefixIcon: Icon(Icons.phone, color: Color(0xFF5048E5)),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "password is required";
+                      } else if (value.length < 9) {
+                        return "must be at least 9 chars";
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "Password",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF5048E5),
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      prefixIcon: Icon(Icons.lock, color: Color(0xFF5048E5)),
+                      suffixIcon:
+                          Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "password is required";
+                      } else if (value.length < 9) {
+                        return "must be at least 9 chars";
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: confirmpassController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: "Confirm Password",
+                      labelStyle: TextStyle(
+                        color: Color(0xFF5048E5),
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Color(0xFF5048E5), width: 2.0)),
+                      prefixIcon: Icon(Icons.lock, color: Color(0xFF5048E5)),
+                      suffixIcon:
+                          Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      //color: Color(0xFF42A5F5),
+                      gradient: LinearGradient(colors: [
+                        hexStringToColor('5048E5'),
+                        hexStringToColor("5048E5"),
+                      ]),
+                    ),
+                    child: InkWell(
+                      child: MaterialButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            login(
+                                nameController.text.toString(),
+                                emailController.text.toString(),
+                                phnoController.text.toString(),
+                                passwordController.text.toString(),
+                                confirmpassController.text.toString());
+
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext ctx) => dashboard()));
+                          } else {
+                            return null;
+                          }
+                        },
+                        child: const Text(
+                          "SIGNUP",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
         ),
       ),
