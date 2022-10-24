@@ -98,8 +98,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       Align(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "assets/images/pp.png",
-                          color: Color(0xFFFFFFFF),
+                          "assets/images/wl.png",
+                          //color: Color(0xFFFFFFFF),
                           height: 200,
                           fit: BoxFit.cover,
                         ),
@@ -145,7 +145,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       if (value == null || value.isEmpty) {
                         return "email is required";
                       } else if (RegExp(emailRegex).hasMatch(value)) {
-                        return "email can not be empty";
                       } else {
                         return "please enter a valid email!";
                       }

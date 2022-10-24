@@ -35,7 +35,12 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.analytics),
             title: Text('Report & Analysis'),
-            onTap: () => print('Fav'),
+            onTap: () => {
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (BuildContext ctx) => HomePageee())),
+            },
           ),
           ListTile(
             leading: Icon(Icons.category),

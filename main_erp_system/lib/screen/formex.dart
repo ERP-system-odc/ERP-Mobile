@@ -37,10 +37,18 @@ class _FormState extends State<form_pagee> {
         "tin_number": tin_number,
       });
 
+      var Token =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZDg2NDdlLWEwMWQtNDNlNS05YzYwLWI0YjRjOTgwNDIyNyIsImlzX2FkbWluIjpmYWxzZSwiaWF0IjoxNjY2NjEyMzExfQ.eePmX_vWD8xs1vwkm5Lp-0MIuRyOtEpzHLSgPwbNvkE';
+      final prefsT = await SharedPreferences.getInstance();
+      final accessToken = prefsT.getString('token');
+      print("_------------------");
+      print(accessToken);
+
       Response response = await post(
           Uri.parse('http://localhost:5000/api/firmDefinition/defineFirm/'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
+            'Authorization': 'Bearer $accessToken',
           },
           body: mybody1);
 
@@ -79,6 +87,7 @@ class _FormState extends State<form_pagee> {
         child: (Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //Text(widget.accessToken),
             const SizedBox(
               height: 20,
             ),
@@ -243,51 +252,4 @@ class _FormState extends State<form_pagee> {
       )),
     );
   }
-
-  //Future<void> register() async {
-  //var token = jsonDecode('access-token');
-  // WidgetsFlutterBinding.ensureInitialized();
-  // SharedPreferences prefss = await SharedPreferences.getInstance();
-  // var token = prefss.getString('access-token');
-  // print(token);
-
-  // var request =
-  //     await http.post(Uri.parse('http://localhost:5000/api/auth/signin'),
-  //         headers: {HttpHeaders.contentTypeHeader: 'application/json'},
-  //         body: ({
-  //           "business_name": nameController.text,
-  //           "business_sub_type": businessSubType.text,
-  //           "initial_capital": capital.text,
-  //           "tin_number": tinNumber.text
-  //         }));
-  // var token = json.decode(request.body)["access-token"];
-  // print('this is your token ' + token);
-
-  // var headers = {
-  //   'Authorization': 'Bearer $accessToken',
-  //   'Content-Type': 'application/json'
-  // };
-  // try {
-  //   var request = http.Request(
-  //       'POST',
-  //       Uri.parse(
-  //           'http://localhost:5000/api/firmDefinition/defineFirm/$accessToken'));
-
-  //   request.body = json.encode({
-  //     "business_name": nameController.text,
-  //     "business_sub_type": businessSubType.text,
-  //     "initial_capital": capital.text,
-  //     "tin_number": tinNumber.text
-  //   });
-  //   request.headers.addAll(headers);
-  //   http.StreamedResponse response = await request.send();
-  //   if (response.statusCode == 200) {
-  //     print(await response.stream.bytesToString());
-  //   } else {
-  //     print(response.reasonPhrase);
-  //   }
-  // } catch (e) {
-  //   print(e.toString());
-  // }
-  // }
 }

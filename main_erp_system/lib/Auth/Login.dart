@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:main_erp_system/Auth/Signup.dart';
 import 'package:main_erp_system/dashboard/dashboard.dart';
+import 'package:main_erp_system/screen/formex.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -10,20 +12,25 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  //const LoginScreen({Key? key}) : super(key: key);
 
   Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
     print(email);
+
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    // String acctok = sharedPreferences.getString('access-token')!;
+    // print('shared token' + acctok);
+
     // var token = prefs.getString('access-token');
     // print(token);
-    var token;
-    addTokenToSF() async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('access-token', token);
-    }
+    // var token;
+    // addTokenToSF() async {
+    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    //   prefs.setString('access-token', token);
+    // }
 
     runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
   }
@@ -36,13 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  // Object? get tokenValue => null;
-  // getTokenFromSF() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   var tokenValue = prefs.getString('access-token');
-  //   return tokenValue;
-  // }
-
   void login(
     String email,
     password,
@@ -53,18 +53,20 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': password,
       });
 
+      const addr = "127.0.0.1";
+
       Response response = await http.post(
-          Uri.parse('http://localhost:5000/api/auth/signin'),
+          Uri.parse('http://$addr:5000/api/auth/signin'),
           headers: {HttpHeaders.contentTypeHeader: 'application/json'},
           body: myBody);
 
-      var accessToken;
+      //var accessToken;
 
       var request =
-          await http.post(Uri.parse('http://localhost:5000/api/auth/signin'),
+          await http.post(Uri.parse('http://$addr:5000/api/auth/signin'),
               headers: {
                 HttpHeaders.contentTypeHeader: 'application/json',
-                'Authorization': 'Bearer $accessToken',
+                //'Authorization': 'Bearer $accessToken',
               },
               body: myBody);
 
@@ -74,18 +76,18 @@ class _LoginScreenState extends State<LoginScreen> {
           if (request.statusCode == 200) {
             print(json.decode(request.body));
             var accessToken = json.decode(request.body)["access-token"];
+
+            final sharedPreferences = await SharedPreferences.getInstance();
+            sharedPreferences.setString("token", accessToken);
+
             print('this is your token ' + accessToken);
+            //print(sharedPreferences);
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const dashboard()));
           } else {
             print('\n token faild \n');
           }
-
-          // var data = jsonDecode(response.body);
-          // //token = json.decode(re)
-          // print(data);
-          // print('you are loged in');
         } else {
           print('faild to Login ');
         }
@@ -134,8 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        "assets/images/pp.png",
-                        color: Color(0xFFFFFFFF),
+                        "assets/images/wl.png",
                         height: 200,
                         fit: BoxFit.contain,
                       ),
@@ -153,7 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return "email is required";
                     } else if (RegExp(emailRegex).hasMatch(value)) {
-                      return "email can not be empty";
                     } else {
                       return "please enter a valid email!";
                     }
@@ -206,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             BorderSide(color: Color(0xFF5048E5), width: 2.0)),
                     prefixIcon: Icon(Icons.lock, color: Color(0xFF5048E5)),
                     suffixIcon:
-                        Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
+                        Icon(Icons.visibility_off, color: Color(0xFF5048E5)),
                   ),
                 ),
               ),
