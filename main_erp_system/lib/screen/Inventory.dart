@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:http/http.dart' as http;
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -73,7 +74,7 @@ class _InventoryState extends State<Inventory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Please Add Your Materials Here"),
+        title: const LocaleText("please_add_your_materials_here"),
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -211,7 +212,7 @@ class _InventoryState extends State<Inventory> {
                       inventory_quantity.text.toString(),
                     );
                   },
-                  child: const Text(
+                  child: const LocaleText(
                     "Submit",
                     style: TextStyle(
                       fontSize: 25,

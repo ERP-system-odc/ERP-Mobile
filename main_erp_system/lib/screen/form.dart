@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:main_erp_system/utils/color_utils.dart';
@@ -84,7 +85,7 @@ class _FormState extends State<form_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Please Add Your Firm Here"),
+        title: const LocaleText("please_add_your_firm_here"),
         backgroundColor: Color(0xFF5048E5),
       ),
       body: Center(
@@ -221,8 +222,8 @@ class _FormState extends State<form_page> {
                       // tinNumbererror.text.toString(),
                     );
                   },
-                  child: const Text(
-                    "Submit",
+                  child: const LocaleText(
+                    "submit",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

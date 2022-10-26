@@ -75,19 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
               return [
                 PopupMenuItem<int>(
                   value: 0,
-                  child: Text("English"),
+                  child: Text("🇺🇸  English"),
                 ),
                 PopupMenuItem<int>(
                   value: 1,
-                  child: Text("አማርኛ"),
-                ),
-                PopupMenuItem<int>(
-                  value: 2,
-                  child: Text("afan orormo"),
-                ),
-                PopupMenuItem<int>(
-                  value: 3,
-                  child: Text("ትግረኛ"),
+                  child: Text("🇪🇹  አማርኛ"),
                 ),
               ];
             },
@@ -166,8 +158,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         Row(
                           children: [
                             Container(
-                              child: Text(
-                                "CAPITAL",
+                              child: LocaleText(
+                                "capital",
                                 style: TextStyle(
                                     fontSize: 25,
                                     color: Colors.white,
@@ -227,8 +219,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Row(
                           children: [
-                            Text(
-                              "TOTAL PROFIT",
+                            LocaleText(
+                              "total_profit",
                               style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -287,8 +279,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Row(
                           children: [
-                            Text(
-                              "TOTAL PROGRESS",
+                            LocaleText(
+                              "total_progress",
                               style: TextStyle(
                                   fontSize: 17,
                                   color: Colors.white,
@@ -347,8 +339,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: <Widget>[
                         Row(
                           children: [
-                            Text(
-                              "TOTAL EXPENSE",
+                            LocaleText(
+                              "total_expense",
                               style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.white,

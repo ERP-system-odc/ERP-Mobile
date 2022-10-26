@@ -33,7 +33,7 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.add),
-            title: Text('Register'),
+            title: LocaleText('register'),
             onTap: () => {
               Navigator.push(
                   context,
@@ -43,7 +43,7 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.category),
-            title: Text('Inventory'),
+            title: LocaleText('inventory'),
             onTap: () => {
               Navigator.push(
                   context,
@@ -55,7 +55,7 @@ class NavBar extends StatelessWidget {
             //tileColor: Colors.amber,
             //textColor: Color.fromARGB(255, 33, 150, 243),
             leading: Icon(Icons.language),
-            title: Text('Stock'),
+            title: LocaleText('stock'),
             onTap: () => {
               Navigator.push(
                   context,
@@ -65,7 +65,7 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.analytics),
-            title: Text('Report & Analysis'),
+            title: LocaleText('report_and_anlysiss'),
             onTap: () => {
               // Navigator.push(
               //     context,
@@ -75,14 +75,14 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.logout_sharp),
-            title: Text('Log Out'),
+            title: LocaleText('log_out'),
             onTap: () => {
               ShowAlertDialog(context),
             },
           ),
           ListTile(
             leading: Icon(Icons.delete),
-            title: Text('Delete Account'),
+            title: LocaleText('delete_account'),
             onTap: () => {
               ShowAlertDialogtwo(context),
             },
@@ -92,22 +92,22 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.share),
-            title: Text('Share'),
+            title: LocaleText('share'),
             onTap: () => print('Fav'),
           ),
           ListTile(
             leading: Icon(Icons.send),
-            title: Text('Send'),
+            title: LocaleText('send'),
             onTap: () => print('Fav'),
           ),
           ListTile(
             leading: Icon(Icons.new_releases),
-            title: Text("What's is new"),
+            title: LocaleText("what_is_new"),
             onTap: () => print('Fav'),
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text('About Us'),
+            title: LocaleText('about_us'),
             onTap: () => print('Fav'),
           ),
           Text(
