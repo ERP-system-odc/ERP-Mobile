@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/dashboard/navigation.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Locales.init(['en', 'am']);
   runApp(const dashboard());
 }
 
@@ -30,14 +33,19 @@ class _dashboardState extends State<dashboard> {
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: buildMaterialColor(Color(0xFF5048E5)),
+          return LocaleBuilder(
+            builder: (Locale) => MaterialApp(
+              localizationsDelegates: Locales.delegates,
+              supportedLocales: Locales.supportedLocales,
+              locale: Locale,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: buildMaterialColor(Color(0xFF5048E5)),
+              ),
+              darkTheme: ThemeData.dark(),
+              themeMode: currentMode,
+              home: MyHomePage(),
             ),
-            darkTheme: ThemeData.dark(),
-            themeMode: currentMode,
-            home: MyHomePage(),
           );
         });
   }
@@ -59,8 +67,60 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: const NavBar(),
       appBar: AppBar(
-        title: const Text('Dashboard'),
+        title: LocaleText('dashboard'),
         actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.language),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem<int>(
+                  value: 0,
+                  child: Text("English"),
+                ),
+                PopupMenuItem<int>(
+                  value: 1,
+                  child: Text("አማርኛ"),
+                ),
+                PopupMenuItem<int>(
+                  value: 2,
+                  child: Text("afan orormo"),
+                ),
+                PopupMenuItem<int>(
+                  value: 3,
+                  child: Text("ትግረኛ"),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              if (value == 0) {
+                LocaleNotifier.of(context)?.change('en');
+              } else if (value == 1) {
+                LocaleNotifier.of(context)?.change('am');
+              } else if (value == 2) {
+                print("under construction");
+              } else if (value == 3) {
+                print("under construction");
+              }
+            },
+          ),
+          // IconButton(
+
+          //   // icon: Icon(Icons.language),
+
+          //   // onPressed: () {
+          //   //   // ListTile(
+          //   //   //   title: Text("English"),
+          //   //   //   onTap: LocaleNotifier.of(context)?.change('en'),
+          //   //   // );
+          //   //   // ListTile(
+          //   //   // title: Text("Amharic"),
+
+          //   //   LocaleNotifier.of(context)?.change('am');
+          //   //   // );
+          //   // },
+
+          // ),
+
           IconButton(
               icon: Icon(_dashboardState.themeNotifier.value == ThemeMode.light
                   ? Icons.light_mode

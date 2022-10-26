@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:main_erp_system/screen/form.dart';
-import 'package:main_erp_system/screen/formex.dart';
+import 'package:main_erp_system/screen/stock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -22,24 +23,22 @@ class NavBar extends StatelessWidget {
             accountEmail: Text('"spacepro@gmail.com"'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-
-                  // child: Image.asset(
-                  //   "images/pp.png",
-                  //   fit: BoxFit.contain,
-                  //   height: 90,
-                  //   width: 90,
-                  // ),
-                  ),
+                child: Image.asset(
+                  "assets/images/wl.png",
+                  height: 60,
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.analytics),
-            title: Text('Report & Analysis'),
+            leading: Icon(Icons.add),
+            title: Text('Register'),
             onTap: () => {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext ctx) => HomePageee())),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => form_page())),
             },
           ),
           ListTile(
@@ -53,25 +52,25 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.add),
-            title: Text('Register'),
-            onTap: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext ctx) => form_page())),
-            },
-          ),
-          ListTile(
             //tileColor: Colors.amber,
             //textColor: Color.fromARGB(255, 33, 150, 243),
             leading: Icon(Icons.language),
-            title: Text('form example'),
+            title: Text('Stock'),
             onTap: () => {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext ctx) => form_pagee())),
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.analytics),
+            title: Text('Report & Analysis'),
+            onTap: () => {
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (BuildContext ctx) => HomePageee())),
             },
           ),
           ListTile(
@@ -111,6 +110,8 @@ class NavBar extends StatelessWidget {
             title: Text('About Us'),
             onTap: () => print('Fav'),
           ),
+          Text(
+              '                 dot ERP system for Android\n                   v1.0.0.1(10000) universal'),
         ],
       ),
     );

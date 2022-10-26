@@ -14,7 +14,6 @@ class form_pagee extends StatefulWidget {
 
 class _FormState extends State<form_pagee> {
   TextEditingController business_name = TextEditingController();
-  // TextEditingController livingaddress = TextEditingController();
   TextEditingController business_type = TextEditingController();
   TextEditingController business_sub_type = TextEditingController();
   TextEditingController business_capital = TextEditingController();
@@ -38,17 +37,20 @@ class _FormState extends State<form_pagee> {
       });
 
       var Token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZDg2NDdlLWEwMWQtNDNlNS05YzYwLWI0YjRjOTgwNDIyNyIsImlzX2FkbWluIjpmYWxzZSwiaWF0IjoxNjY2NjEyMzExfQ.eePmX_vWD8xs1vwkm5Lp-0MIuRyOtEpzHLSgPwbNvkE';
-      final prefsT = await SharedPreferences.getInstance();
-      final accessToken = prefsT.getString('token');
-      print("_------------------");
-      print(accessToken);
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFjZmY1ZWJlLWM0NWYtNDc2OC1hZTBmLWI0NWZhYmYxMDg5MSIsImlzX2FkbWluIjpmYWxzZSwiaWF0IjoxNjY2Njg3Mjc5fQ.JJwXftvfP37kWsxSdGqDeAkkF8PG3XyvX4NAYk0r7xQ';
 
-      Response response = await post(
+      final prefsTr = await SharedPreferences.getInstance();
+      final tokenn = prefsTr.getString('token');
+      print("_--------registartion token----------");
+      print(tokenn);
+
+      var response = await http.post(
           Uri.parse('http://localhost:5000/api/firmDefinition/defineFirm/'),
           headers: {
             HttpHeaders.contentTypeHeader: 'application/json',
-            'Authorization': 'Bearer $accessToken',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer $tokenn',
           },
           body: mybody1);
 
@@ -57,7 +59,11 @@ class _FormState extends State<form_pagee> {
           print('you added your business');
         } else {
           print(response.statusCode);
+          print(response.body);
           print('faild to load');
+          print(
+              '--------------------this is your registration token---------------');
+          print(tokenn);
         }
       } catch (e) {
         print(e.toString());
@@ -79,7 +85,7 @@ class _FormState extends State<form_pagee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Please Add Materials here"),
+        title: const Text("Please Add Your Stock Here"),
         backgroundColor: Color(0xFF5048E5),
       ),
       body: Center(

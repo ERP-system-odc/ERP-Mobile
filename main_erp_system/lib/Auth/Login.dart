@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:main_erp_system/Auth/Signup.dart';
 import 'package:main_erp_system/dashboard/dashboard.dart';
-import 'package:main_erp_system/screen/formex.dart';
+import 'package:main_erp_system/screen/stock.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -19,18 +19,6 @@ class LoginScreen extends StatefulWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString('email');
     print(email);
-
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    // String acctok = sharedPreferences.getString('access-token')!;
-    // print('shared token' + acctok);
-
-    // var token = prefs.getString('access-token');
-    // print(token);
-    // var token;
-    // addTokenToSF() async {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
-    //   prefs.setString('access-token', token);
-    // }
 
     runApp(MaterialApp(home: email == null ? dashboard() : dashboard()));
   }
@@ -53,17 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': password,
       });
 
-      const addr = "127.0.0.1";
-
       Response response = await http.post(
-          Uri.parse('http://$addr:5000/api/auth/signin'),
+          Uri.parse('http://localhost:5000/api/auth/signin'),
           headers: {HttpHeaders.contentTypeHeader: 'application/json'},
           body: myBody);
 
-      //var accessToken;
-
       var request =
-          await http.post(Uri.parse('http://$addr:5000/api/auth/signin'),
+          await http.post(Uri.parse('http://localhost:5000/api/auth/signin'),
               headers: {
                 HttpHeaders.contentTypeHeader: 'application/json',
                 //'Authorization': 'Bearer $accessToken',
@@ -75,20 +59,20 @@ class _LoginScreenState extends State<LoginScreen> {
         if (response.statusCode == 200) {
           if (request.statusCode == 200) {
             print(json.decode(request.body));
-            var accessToken = json.decode(request.body)["access-token"];
+            var tokenn = json.decode(request.body)["access-token"];
 
             final sharedPreferences = await SharedPreferences.getInstance();
-            sharedPreferences.setString("token", accessToken);
-
-            print('this is your token ' + accessToken);
-            //print(sharedPreferences);
+            sharedPreferences.setString("token", tokenn);
+            print('this is your token ' + tokenn);
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const dashboard()));
           } else {
+            print(request.body);
             print('\n token faild \n');
           }
         } else {
+          print(response.body);
           print('faild to Login ');
         }
       } catch (e) {
