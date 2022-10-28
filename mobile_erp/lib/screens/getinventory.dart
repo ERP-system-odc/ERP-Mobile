@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<Post> fetchAlbum() async {
+Future<Data> fetchAlbum() async {
   final prefsTr = await SharedPreferences.getInstance();
   final tokenn = prefsTr.getString('token');
   print("_------------------");
@@ -18,36 +18,66 @@ Future<Post> fetchAlbum() async {
       headers: headers);
 
   if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    print("AAAA");
+    var x = response.body;
     print(response.body);
-    var parsed = (response.body);
-    return Post.fromJson(jsonDecode(parsed));
+    return Data.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load Data');
   }
 }
-class Post {
-  String? inventoryName;
-  String? inventoryPrice;
-  String? leastCriticalAmount;
-  String? totalAmount;
 
-  Post(
-      {required this.inventoryName,
-      required this.inventoryPrice,
-      required this.leastCriticalAmount,
-      required this.totalAmount});
+class Data {
+  Data({
+    required this.foundInventoryTypes,
+  });
+  late final List<FoundInventoryTypes> foundInventoryTypes;
 
-  Post.fromJson(Map<String, dynamic> json) {
-    inventoryName = json['data'][0]['inventory_name'].toString();
-    inventoryPrice = json['data']['inventory_price'].toString();
-    leastCriticalAmount = json['data']['least_critical_amount'].toString();
-    totalAmount = json['data']['total_amount'].toString();
-    print(inventoryName);
+  Data.fromJson(Map<String, dynamic> json) {
+    foundInventoryTypes = List.from(json['foundInventoryTypes'])
+        .map((e) => FoundInventoryTypes.fromJson(e))
+        .toList();
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['foundInventoryTypes'] =
+        foundInventoryTypes.map((e) => e.toJson()).toList();
+    return _data;
+  }
+}
+
+class FoundInventoryTypes {
+  FoundInventoryTypes({
+    required this.id,
+    required this.inventoryName,
+    required this.inventoryPrice,
+    required this.leastCriticalAmount,
+    required this.totalAmount,
+  });
+  late final int id;
+  late final String inventoryName;
+  late final int inventoryPrice;
+  late final int leastCriticalAmount;
+  late final int totalAmount;
+
+  FoundInventoryTypes.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    inventoryName = json['inventory_name'];
+    inventoryPrice = json['inventory_price'];
+    leastCriticalAmount = json['least_critical_amount'];
+    totalAmount = json['total_amount'];
+    print(inventoryPrice);
+    print(totalAmount);
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['inventory_name'] = inventoryName;
+    _data['inventory_price'] = inventoryPrice;
+    _data['least_critical_amount'] = leastCriticalAmount;
+    _data['total_amount'] = totalAmount;
+    return _data;
   }
 }
 
@@ -59,7 +89,7 @@ class getinventory extends StatefulWidget {
 }
 
 class _MyAppState extends State<getinventory> {
-  late Future<Post> futureAlbum;
+  late Future<Data> futureAlbum;
 
   @override
   void initState() {
@@ -76,17 +106,50 @@ class _MyAppState extends State<getinventory> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Fetch Data Example'),
+          title: const Text('Get Inventory'),
         ),
         body: Center(
-          child: FutureBuilder<Post>(
+          child: FutureBuilder<Data>(
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text("Hello");
+                return Center(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Text(snapshot
+                              .data!.foundInventoryTypes[0].inventoryName),
+                          title: Text(snapshot
+                              .data!.foundInventoryTypes[0].inventoryPrice
+                              .toString()),
+                          subtitle: Text(snapshot
+                              .data!.foundInventoryTypes[0].leastCriticalAmount
+                              .toString()),
+                        ),
+                        ListTile(
+                          leading: Text(snapshot
+                              .data!.foundInventoryTypes[1].inventoryName),
+                          title: Text(snapshot
+                              .data!.foundInventoryTypes[1].inventoryPrice
+                              .toString()),
+                          subtitle: Text(snapshot
+                              .data!.foundInventoryTypes[1].leastCriticalAmount
+                              .toString()),
+                        ),
+                        ListTile(
+                          leading: Text("A"),
+                          title: Text("Price 1, "),
+                          subtitle: Text("Total Amount in stock: 3, "),
+                        )
+                      ],
+                    ),
+                  ),
+                );
               } else if (snapshot.hasError) {
-                print(snapshot.error);
-                return Text('${snapshot.error}');
+                print("Haha");
+                return Text('hehe');
               }
 
               // By default, show a loading spinner.
