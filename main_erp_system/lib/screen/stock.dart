@@ -233,14 +233,14 @@ class _FormState extends State<form_pagee> {
                 ),
                 child: MaterialButton(
                   onPressed: () async {
-                    register(
-                      business_name.text.toString(),
-                      business_type.text.toString(),
-                      business_sub_type.text.toString(),
-                      business_capital.text.toString(),
-                      tin_number.text.toString(),
-                      // tinNumbererror.text.toString(),
-                    );
+                    // register(
+                    //   business_name.text.toString(),
+                    //   business_type.text.toString(),
+                    //   business_sub_type.text.toString(),
+                    //   business_capital.text.toString(),
+                    //   tin_number.text.toString(),
+                    //   // tinNumbererror.text.toString(),
+                    // );
                   },
                   child: const Text(
                     "Submit",

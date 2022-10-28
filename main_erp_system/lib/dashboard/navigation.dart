@@ -6,7 +6,10 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:main_erp_system/screen/form.dart';
+import 'package:main_erp_system/screen/standard.dart';
+import 'package:main_erp_system/screen/standex.dart';
 import 'package:main_erp_system/screen/stock.dart';
+import 'package:main_erp_system/utils/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -30,6 +33,14 @@ class NavBar extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          ListTile(
+            leading: Icon(Icons.analytics),
+            title: LocaleText('report_and_anlysiss'),
+            onTap: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => piechart())),
+            },
           ),
           ListTile(
             leading: Icon(Icons.add),
@@ -64,13 +75,11 @@ class NavBar extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.analytics),
-            title: LocaleText('report_and_anlysiss'),
+            leading: Icon(Icons.stay_primary_landscape_rounded),
+            title: Text('standard'),
             onTap: () => {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext ctx) => HomePageee())),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => Standex())),
             },
           ),
           ListTile(

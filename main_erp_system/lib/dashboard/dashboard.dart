@@ -3,6 +3,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/dashboard/navigation.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
+import 'package:main_erp_system/utils/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart';
 
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final double categoryHeight =
         MediaQuery.of(context).size.height * 0.30 - 50;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       drawer: const NavBar(),
       appBar: AppBar(
         title: LocaleText('dashboard'),
@@ -95,24 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             },
           ),
-          // IconButton(
-
-          //   // icon: Icon(Icons.language),
-
-          //   // onPressed: () {
-          //   //   // ListTile(
-          //   //   //   title: Text("English"),
-          //   //   //   onTap: LocaleNotifier.of(context)?.change('en'),
-          //   //   // );
-          //   //   // ListTile(
-          //   //   // title: Text("Amharic"),
-
-          //   //   LocaleNotifier.of(context)?.change('am');
-          //   //   // );
-          //   // },
-
-          // ),
-
           IconButton(
               icon: Icon(_dashboardState.themeNotifier.value == ThemeMode.light
                   ? Icons.light_mode
@@ -126,260 +110,284 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: FittedBox(
-            fit: BoxFit.fill,
-            alignment: Alignment.topCenter,
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 220,
-                  margin: EdgeInsets.only(right: 20),
-                  height: categoryHeight,
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Container(
-                              child: LocaleText(
-                                "capital",
+        child: Column(
+          children: <Widget>[
+            SingleChildScrollView(
+              //physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  alignment: Alignment.topCenter,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 220,
+                        margin: EdgeInsets.only(right: 20),
+                        height: categoryHeight,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 6,
+                                blurRadius: 7,
+                                offset: Offset(0, 4),
+                              )
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  Container(
+                                    child: LocaleText(
+                                      "capital",
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    radius: 22,
+                                    child: Icon(
+                                      Icons.account_balance,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // SizedBox(
+                              //   height: 5,
+                              // ),
+                              Text(
+                                " \$5K",
                                 style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 35, color: Colors.white),
                               ),
-                            ),
-                            SizedBox(
-                              width: 40,
-                            ),
-                            CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              radius: 22,
-                              child: Icon(
-                                Icons.account_balance,
-                                color: Colors.white,
+                              SizedBox(
+                                height: 10,
                               ),
-                            ),
-                          ],
+                              Text(
+                                '    15%',
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        Text(
-                          " \$5K",
-                          style: TextStyle(fontSize: 35, color: Colors.white),
+                      ),
+                      Container(
+                        width: 220,
+                        margin: EdgeInsets.only(right: 20),
+                        height: categoryHeight,
+                        decoration: BoxDecoration(
+                            color: Colors.orange,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 6,
+                                blurRadius: 7,
+                                offset: Offset(0, 4),
+                              )
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  LocaleText(
+                                    "total_profit",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 22,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    radius: 22,
+                                    child: Icon(
+                                      Icons.money_outlined,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                " \$21K",
+                                style: TextStyle(
+                                    fontSize: 35, color: Colors.white),
+                              ),
+                              // SizedBox(
+                              //   height: 5,
+                              // ),
+                              Text(
+                                '    30%',
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          height: 10,
+                      ),
+                      Container(
+                        width: 220,
+                        margin: EdgeInsets.only(right: 20),
+                        height: categoryHeight,
+                        decoration: BoxDecoration(
+                            color: Color(0xFF2196F3),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 6,
+                                blurRadius: 7,
+                                offset: Offset(0, 4),
+                              )
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  LocaleText(
+                                    "total_progress",
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    radius: 22,
+                                    child: Icon(
+                                      Icons.money_outlined,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                " \$51K",
+                                style: TextStyle(
+                                    fontSize: 35, color: Colors.white),
+                              ),
+                              // SizedBox(
+                              //   height: 20,
+                              // ),
+                              Text(
+                                '    49%',
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          '    15%',
-                          style: TextStyle(fontSize: 17, color: Colors.white),
+                      ),
+                      Container(
+                        width: 220,
+                        margin: EdgeInsets.only(right: 20),
+                        height: categoryHeight,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.7),
+                                spreadRadius: 6,
+                                blurRadius: 7,
+                                offset: Offset(0, 4),
+                              )
+                            ],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                children: [
+                                  LocaleText(
+                                    "total_expense",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    radius: 22,
+                                    child: Icon(
+                                      Icons.money_outlined,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                " \$17K",
+                                style: TextStyle(
+                                    fontSize: 35, color: Colors.white),
+                              ),
+                              // SizedBox(
+                              //   height: 20,
+                              // ),
+                              Text(
+                                '    29%',
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                Container(
-                  width: 220,
-                  margin: EdgeInsets.only(right: 20),
-                  height: categoryHeight,
-                  decoration: BoxDecoration(
-                      color: Colors.orange,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            LocaleText(
-                              "total_profit",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 22,
-                            ),
-                            CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              radius: 22,
-                              child: Icon(
-                                Icons.money_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          " \$21K",
-                          style: TextStyle(fontSize: 35, color: Colors.white),
-                        ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        Text(
-                          '    30%',
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 220,
-                  margin: EdgeInsets.only(right: 20),
-                  height: categoryHeight,
-                  decoration: BoxDecoration(
-                      color: Color(0xFF2196F3),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            LocaleText(
-                              "total_progress",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 22,
-                              child: Icon(
-                                Icons.money_outlined,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          " \$51K",
-                          style: TextStyle(fontSize: 35, color: Colors.white),
-                        ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        Text(
-                          '    49%',
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 220,
-                  margin: EdgeInsets.only(right: 20),
-                  height: categoryHeight,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 4),
-                        )
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            LocaleText(
-                              "total_expense",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              radius: 22,
-                              child: Icon(
-                                Icons.money_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          " \$17K",
-                          style: TextStyle(fontSize: 35, color: Colors.white),
-                        ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        Text(
-                          '    29%',
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            //fo pie chart
+            Container(
+              child: piechart(),
+              //child: Text('most wanted pie chart'),
+            )
+          ],
         ),
       ),
     );

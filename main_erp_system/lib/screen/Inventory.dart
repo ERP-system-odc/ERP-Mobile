@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:http/http.dart' as http;
+import 'package:main_erp_system/Access/getinventory.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -72,176 +73,201 @@ class _InventoryState extends State<Inventory> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const LocaleText("please_add_your_materials_here"),
-      ),
-      body: Center(
-          child: SingleChildScrollView(
-        child: (Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const LocaleText("please_add_your_materials_here"),
+          bottom: TabBar(
+            labelStyle: const TextStyle(fontSize: 20),
+            tabs: [
+              Container(
+                height: 35,
+                child: const Text('add'),
+              ),
+              Container(
+                height: 35,
+                child: const Text('view'),
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Image.asset(
-                "assets/images/bl.png",
-                height: 120,
-                fit: BoxFit.contain,
-              ),
-            ),
-
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Inventory Name',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
+            Center(
+                child: SingleChildScrollView(
+              child: (Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.precision_manufacturing,
-                      color: Color(0xFF5048E5)),
-                ),
-                controller: inventory_name,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Inventory Price',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.money, color: Color(0xFF5048E5)),
-                ),
-                controller: inventory_price,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: ' least Critical Amount ',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon:
-                      Icon(Icons.cached_rounded, color: Color(0xFF5048E5)),
-                ),
-                controller: least_critical_amount,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Quantity',
-                  labelStyle: TextStyle(
-                    color: Color(0xFF5048E5),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Color(0xFF5048E5), width: 2.0)),
-                  suffixIcon: Icon(Icons.balance, color: Color(0xFF5048E5)),
-                ),
-                controller: inventory_quantity,
-                keyboardType: TextInputType.text,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              child: Container(
-                height: 60,
-                width: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  //color: Color(0xFF42A5F5),
-                  gradient: LinearGradient(colors: [
-                    hexStringToColor('5048E5'),
-                    hexStringToColor("5048E5"),
-                  ]),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    Invent(
-                      inventory_name.text.toString(),
-                      inventory_price.text.toString(),
-                      least_critical_amount.text.toString(),
-                      inventory_quantity.text.toString(),
-                    );
-                  },
-                  child: const LocaleText(
-                    "Submit",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                      color: Colors.white,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/images/bl.png",
+                      height: 120,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                ),
-              ),
-            ),
-            // Container(
-            //   color: const Color(0xFF5048E5),
-            //   child: SizedBox(
-            //     width: 200,
-            //     height: 50,
-            //     child: TextButton(
-            //         onPressed: () {
-            //           insert();
-            //         },
-            //         child: const Text(
-            //           "Submit",
-            //           style: TextStyle(color: Colors.white),
-            //         )),
-            //   ),
-            // )
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Inventory Name',
+                        labelStyle: TextStyle(
+                          color: Color(0xFF5048E5),
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        suffixIcon: Icon(Icons.precision_manufacturing,
+                            color: Color(0xFF5048E5)),
+                      ),
+                      controller: inventory_name,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Inventory Price',
+                        labelStyle: TextStyle(
+                          color: Color(0xFF5048E5),
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        suffixIcon: Icon(Icons.money, color: Color(0xFF5048E5)),
+                      ),
+                      controller: inventory_price,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: ' least Critical Amount ',
+                        labelStyle: TextStyle(
+                          color: Color(0xFF5048E5),
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        suffixIcon: Icon(Icons.cached_rounded,
+                            color: Color(0xFF5048E5)),
+                      ),
+                      controller: least_critical_amount,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Quantity',
+                        labelStyle: TextStyle(
+                          color: Color(0xFF5048E5),
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF5048E5), width: 2.0)),
+                        suffixIcon:
+                            Icon(Icons.balance, color: Color(0xFF5048E5)),
+                      ),
+                      controller: inventory_quantity,
+                      keyboardType: TextInputType.text,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Container(
+                      height: 60,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        //color: Color(0xFF42A5F5),
+                        gradient: LinearGradient(colors: [
+                          hexStringToColor('5048E5'),
+                          hexStringToColor("5048E5"),
+                        ]),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          Invent(
+                            inventory_name.text.toString(),
+                            inventory_price.text.toString(),
+                            least_critical_amount.text.toString(),
+                            inventory_quantity.text.toString(),
+                          );
+                        },
+                        child: const LocaleText(
+                          "Submit",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Container(
+                  //   color: const Color(0xFF5048E5),
+                  //   child: SizedBox(
+                  //     width: 200,
+                  //     height: 50,
+                  //     child: TextButton(
+                  //         onPressed: () {
+                  //           insert();
+                  //         },
+                  //         child: const Text(
+                  //           "Submit",
+                  //           style: TextStyle(color: Colors.white),
+                  //         )),
+                  //   ),
+                  // )
+                ],
+              )),
+            )),
+            Center(
+              child: getinventory(),
+              // child: getinventorym(),
+            )
           ],
-        )),
-      )),
+        ),
+      ),
     );
   }
 }
