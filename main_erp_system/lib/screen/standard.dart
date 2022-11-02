@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:main_erp_system/screen/user_model.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
 class Standex extends StatefulWidget {
@@ -182,6 +185,8 @@ class _StandexState extends State<Standex> {
                             onPressed: () async {
                               if (validateAndSave()) {
                                 print(this.userModel.toJson());
+                                
+                                
                               }
                             },
                             child: const LocaleText(
@@ -278,7 +283,7 @@ class _StandexState extends State<Standex> {
               paddingLeft: 0,
               paddingRight: 0,
               showPrefixIcon: false,
-              fontSize: 13,
+              fontSize: 15,
               onChange: (val) {},
             ),
           ),
@@ -379,7 +384,7 @@ class _StandexState extends State<Standex> {
               paddingLeft: 0,
               paddingRight: 0,
               showPrefixIcon: false,
-              fontSize: 13,
+              fontSize: 15,
               onChange: (val) {},
             ),
           ),

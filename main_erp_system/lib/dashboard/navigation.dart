@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:main_erp_system/Access/report_analysis.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:main_erp_system/screen/form.dart';
 import 'package:main_erp_system/screen/standard.dart';
-import 'package:main_erp_system/screen/standex.dart';
+import 'package:main_erp_system/screen/standardex.dart';
 import 'package:main_erp_system/screen/stock.dart';
 import 'package:main_erp_system/utils/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,7 @@ class NavBar extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('mintesnot'),
+            accountName: Text('Your Name'),
             accountEmail: Text('"spacepro@gmail.com"'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
@@ -39,7 +40,7 @@ class NavBar extends StatelessWidget {
             title: LocaleText('report_and_anlysiss'),
             onTap: () => {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext ctx) => piechart())),
+                  MaterialPageRoute(builder: (BuildContext ctx) => reportA())),
             },
           ),
           ListTile(
@@ -102,7 +103,12 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.share),
             title: LocaleText('share'),
-            onTap: () => print('Fav'),
+            onTap: () => {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => Standardex())),
+            },
           ),
           ListTile(
             leading: Icon(Icons.send),

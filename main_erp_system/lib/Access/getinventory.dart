@@ -116,6 +116,7 @@ class _MyAppState extends State<getinventory> {
                           title: Text("Inventory Price , "),
                           subtitle: Text("leastCriticalAmount "),
                         ),
+                       
                         ListTile(
                           leading: Text(snapshot
                               .data!.foundInventoryTypes[0].inventoryName),
