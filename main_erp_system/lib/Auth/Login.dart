@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   //const LoginScreen({Key? key}) : super(key: key);
@@ -67,6 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const dashboard()));
+
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text('user data'),
+            //   ),
+            // );
           } else {
             print(request.body);
             print('\n token faild \n');
@@ -293,6 +300,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignupScreen()));
+                        // Fluttertoast.showToast(
+                        //   msg: "Login successfull",
+                        //   //toastLength: Toast.LENGTH_SHORT,
+                        //   //gravity: ToastGravity.CENTER,
+                        //   //timeInSecForIosWeb: 1,
+                        //   //backgroundColor: Colors.red,
+                        //   //textColor: Colors.white,
+                        //   //fontSize: 16.0
+                        // );
                       },
                       child: const Text(
                         "SignUp",

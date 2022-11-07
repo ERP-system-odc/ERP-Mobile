@@ -7,6 +7,8 @@ import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 
+import 'package:http/http.dart' as http;
+
 class Standex extends StatefulWidget {
   const Standex({Key? key}) : super(key: key);
 
@@ -185,8 +187,35 @@ class _StandexState extends State<Standex> {
                             onPressed: () async {
                               if (validateAndSave()) {
                                 print(this.userModel.toJson());
-                                
-                                
+                                final prefsTr =
+                                    await SharedPreferences.getInstance();
+                                final tokenn = prefsTr.getString('token');
+                                print("_------------------");
+                                print(tokenn);
+                                try {
+                                  var response = await http.post(
+                                      Uri.parse(
+                                          'http://localhost:5000/api/standard/manage'),
+                                      headers: {
+                                        HttpHeaders.contentTypeHeader:
+                                            'application/json',
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json',
+                                        'Authorization': 'Bearer $tokenn',
+                                      },
+                                      body: userModel);
+                                  try {
+                                    if (response.statusCode == 200) {
+                                      print('you added your standard');
+                                    } else {
+                                      print('you added inventory');
+                                    }
+                                  } catch (e) {
+                                    print(e.toString());
+                                  }
+                                } catch (e) {
+                                  print(e.toString());
+                                }
                               }
                             },
                             child: const LocaleText(

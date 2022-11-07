@@ -106,55 +106,73 @@ class _MyAppState extends State<getinventory> {
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Center(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Text("Inventory Name"),
-                          title: Text("Inventory Price , "),
-                          subtitle: Text("leastCriticalAmount "),
+                return ListView.builder(
+                    itemCount: snapshot.data!.foundInventoryTypes.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Center(
+                          child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: RefreshIndicator(
+                          onRefresh: fetchAlbum,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: ListTile(
+                                  shape: const BeveledRectangleBorder(
+                                      side: BorderSide(
+                                    color: Color(0xFF5048E5),
+                                  )),
+                                  leading: Text(
+                                      "Inventory Name: ${snapshot.data!.foundInventoryTypes[index].inventoryName}"),
+                                  title: Text(
+                                      "Price: ${snapshot.data!.foundInventoryTypes[index].inventoryPrice.toString()}"),
+                                  subtitle: Text(
+                                      "Total Amount ${snapshot.data!.foundInventoryTypes[index].totalAmount.toString()}"),
+                                  trailing: Icon(Icons.work),
+                                ),
+                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(top: 40),
+                              //   child: ListTile(
+                              //     shape: const BeveledRectangleBorder(
+                              //         side: BorderSide(
+                              //             color: Color(0xFF5048E5),
+                              //             strokeAlign: StrokeAlign.outside)),
+                              //     leading: Text(
+                              //         "Inventory Name: ${snapshot.data!.foundInventoryTypes[1].inventoryName}"),
+                              //     title: Text(
+                              //         "Price: ${snapshot.data!.foundInventoryTypes[1].inventoryPrice.toString()}"),
+                              //     subtitle: Text(
+                              //         "Total Amount ${snapshot.data!.foundInventoryTypes[1].totalAmount.toString()}"),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(top: 40),
+                              //   child: ListTile(
+                              //     shape: const BeveledRectangleBorder(
+                              //         side: BorderSide(
+                              //             color: Color(0xFF5048E5),
+                              //             strokeAlign: StrokeAlign.outside)),
+                              //     leading: Text(
+                              //         "Inventory Name: ${snapshot.data!.foundInventoryTypes[2].inventoryName}"),
+                              //     title: Text(
+                              //         "Price: ${snapshot.data!.foundInventoryTypes[2].inventoryPrice.toString()}"),
+                              //     subtitle: Text(
+                              //         "Total Amount ${snapshot.data!.foundInventoryTypes[2].totalAmount.toString()}"),
+                              //   ),
+                              // ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
                         ),
-                       
-                        ListTile(
-                          leading: Text(snapshot
-                              .data!.foundInventoryTypes[0].inventoryName),
-                          title: Text(snapshot
-                              .data!.foundInventoryTypes[0].inventoryPrice
-                              .toString()),
-                          subtitle: Text(snapshot
-                              .data!.foundInventoryTypes[0].leastCriticalAmount
-                              .toString()),
-                        ),
-                        ListTile(
-                          leading: Text(snapshot
-                              .data!.foundInventoryTypes[1].inventoryName),
-                          title: Text(snapshot
-                              .data!.foundInventoryTypes[1].inventoryPrice
-                              .toString()),
-                          subtitle: Text(snapshot
-                              .data!.foundInventoryTypes[1].leastCriticalAmount
-                              .toString()),
-                        ),
-                        ListTile(
-                          leading: Text(snapshot
-                              .data!.foundInventoryTypes[2].inventoryName),
-                          title: Text(snapshot
-                              .data!.foundInventoryTypes[2].inventoryPrice
-                              .toString()),
-                          subtitle: Text(snapshot
-                              .data!.foundInventoryTypes[2].leastCriticalAmount
-                              .toString()),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                      ));
+                    });
               } else if (snapshot.hasError) {
-                print("Unable to load");
-                print(snapshot);
-                return Text('unable to load');
+                print("Haha");
+                return Text('hehe');
               }
 
               // By default, show a loading spinner.

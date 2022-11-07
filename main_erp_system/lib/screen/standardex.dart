@@ -3,9 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:main_erp_system/Access/getinventory.dart';
+import 'package:main_erp_system/Access/mystand.dart';
 import 'package:main_erp_system/utils/color_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonSerializable(explicitToJson: true)
 class Standardex extends StatefulWidget {
   const Standardex({Key? key}) : super(key: key);
   @override
@@ -17,37 +21,32 @@ class _StandardexState extends State<Standardex> {
   TextEditingController standard_name = TextEditingController();
   TextEditingController inventory_name = TextEditingController();
   TextEditingController inventory_quantity = TextEditingController();
+  final stobj = StandardModel().toJson();
 
-  var Items = [];
+  //var mbody = jsonEncode(StandardModel);
 
-  var map = new Map<String, dynamic>();
-
+  @JsonSerializable(explicitToJson: true)
   void Stand(
-    String standard_name,
+    standard_name,
     inventory_name,
     inventory_quantity,
   ) async {
     try {
-      final mybodys = json.encode({
-        map['standard_name'] = 'standard_name',
-        map['inventory_name'] = 'inventory_name',
-        map['inventory_quantity'] = 'inventory_quantity',
-        //"standard_name": standard_name,
-        //"inventory_name": Items.toString(),
-        //"inventory_name": inventory_name,
-        //"inventory_quantity": inventory_quantity,
-      });
+      // stobj.addAll(standard_name);
+      stobj.toString();
+      // stobj.addAll(StandardItems);
 
-      final prefsTr = await SharedPreferences.getInstance();
+      @JsonSerializable(explicitToJson: true)
+          // final stobja = json.encode({
+          //   "standard_name": standard_name,
+          //   'inventory_name': inventory_name,
+          //   "inventory_quantity": inventory_quantity,
+          // });
+
+          final prefsTr = await SharedPreferences.getInstance();
       final tokenn = prefsTr.getString('token');
       print("_------------------");
       print(tokenn);
-
-      final standa = await SharedPreferences.getInstance();
-      final standart = standa.getString('inventory_name');
-      //final standart = standa.getString(inventory_name);
-      print("_---------your data shared---------");
-      print(standart);
 
       var response = await http.post(
           Uri.parse('http://localhost:5000/api/standard/manage'),
@@ -57,19 +56,15 @@ class _StandardexState extends State<Standardex> {
             'Accept': 'application/json',
             'Authorization': 'Bearer $tokenn',
           },
-          body: mybodys);
+          body: jsonEncode(stobj));
+      //print(stobj);
       try {
         if (response.statusCode == 200) {
           print('inventory added');
         } else {
           print(response.statusCode);
           print(response.body);
-          print('faild to load your inventory');
-          print(
-              '--------------------this is your inventory token---------------');
-          print(tokenn);
-          print("------------items----------");
-          print(Items);
+          print('faild to load your standard');
         }
       } catch (e) {
         print(e.toString());
@@ -140,6 +135,7 @@ class _StandardexState extends State<Standardex> {
               children: [
                 // Items[index].add(standard_name),
                 //Items={$standard_name},
+
                 Text('Standard Name: ${standard_name.text}'),
                 Text('Inventory Name: ${inventory_name.text}'),
                 Text('Inventory Quantity : ${inventory_quantity.text}'),

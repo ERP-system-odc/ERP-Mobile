@@ -42,5 +42,7 @@
     "inventory_price": "Inventory Price",
     "least_critical_amount": "Least Critical Amount",
     "quantity": "Quantity",
-    "please_add_your_stock_here": "Please Add Your Stock Here"
+    "please_add_your_stock_here": "Please Add Your Stock Here",
+    "expense": "expense"
+
 }

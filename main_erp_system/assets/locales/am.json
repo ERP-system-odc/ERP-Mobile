@@ -42,5 +42,7 @@
     "inventory_price": "የእቃ ዝርዝር ዋጋ",
     "least_critical_amount": "በጣም ትንሹ ወሳኝ መጠን",
     "quantity": "ብዛት",
-    "please_add_your_stock_here": "እባክዎ አክሲዮንዎን እዚህ ያክሉ"
+    "please_add_your_stock_here": "እባክዎ አክሲዮንዎን እዚህ ያክሉ",
+    "expense": "expens"
+
 }

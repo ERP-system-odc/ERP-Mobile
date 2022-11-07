@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:main_erp_system/Access/mystand2.dart';
 import 'package:main_erp_system/Access/report_analysis.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
+import 'package:main_erp_system/screen/expenses.dart';
 import 'package:main_erp_system/screen/form.dart';
 import 'package:main_erp_system/screen/standard.dart';
 import 'package:main_erp_system/screen/standardex.dart';
@@ -72,7 +75,7 @@ class NavBar extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext ctx) => form_pagee())),
+                      builder: (BuildContext ctx) => stock_page())),
             },
           ),
           ListTile(
@@ -92,9 +95,12 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.delete),
-            title: LocaleText('delete_account'),
+            title: LocaleText('expense'),
             onTap: () => {
-              ShowAlertDialogtwo(context),
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => Expenses())),
+
+              //ShowAlertDialogtwo(context),
             },
           ),
           Divider(
@@ -113,7 +119,13 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.send),
             title: LocaleText('send'),
-            onTap: () => print('Fav'),
+            onTap: () => {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('user data'),
+                ),
+              ),
+            },
           ),
           ListTile(
             leading: Icon(Icons.new_releases),

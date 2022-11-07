@@ -55,18 +55,42 @@ class _InventoryState extends State<Inventory> {
       try {
         if (response.statusCode == 200) {
           print('inventory added');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('inventory added successfully'),
+            ),
+          );
         } else {
           print(response.statusCode);
           print(response.body);
+
           print('faild to load your inventory');
           print(
               '--------------------this is your inventory token---------------');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text("Current capital isn't enough to process the request"),
+            ),
+          );
+
           //print(tokenn);
         }
+        ;
       } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+          ),
+        );
         print(e.toString());
       }
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
       print(e.toString());
     }
   }
