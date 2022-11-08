@@ -157,8 +157,8 @@ class _ShowProductsState extends State<ShowProducts> {
                       );
                     });
               } else if (snapshot.hasError) {
-                print("Haha");
-                return Text('hehe');
+                print("ops");
+                return Text('ops');
               }
 
               // By default, show a loading spinner.

@@ -1,17 +1,14 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:main_erp_system/Access/mystand2.dart';
 import 'package:main_erp_system/Access/report_analysis.dart';
 import 'package:main_erp_system/Auth/Login.dart';
 import 'package:main_erp_system/screen/Inventory.dart';
 import 'package:main_erp_system/screen/expenses.dart';
 import 'package:main_erp_system/screen/form.dart';
 import 'package:main_erp_system/screen/standard.dart';
-import 'package:main_erp_system/screen/standardex.dart';
 import 'package:main_erp_system/screen/stock.dart';
 import 'package:main_erp_system/utils/pie_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -82,8 +79,10 @@ class NavBar extends StatelessWidget {
             leading: Icon(Icons.stay_primary_landscape_rounded),
             title: Text('standard'),
             onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (BuildContext ctx) => Standex())),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext ctx) => Standardex())),
             },
           ),
           ListTile(
@@ -110,10 +109,10 @@ class NavBar extends StatelessWidget {
             leading: Icon(Icons.share),
             title: LocaleText('share'),
             onTap: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext ctx) => Standardex())),
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (BuildContext ctx) => Standardex())),
             },
           ),
           ListTile(

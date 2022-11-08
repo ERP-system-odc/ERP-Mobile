@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -15,42 +16,54 @@ class stock_page extends StatefulWidget {
 }
 
 class _FormState extends State<stock_page> {
-  TextEditingController productQuantity = TextEditingController();
-  TextEditingController sellingPrice = TextEditingController();
-  TextEditingController productStandard = TextEditingController();
-  TextEditingController productExpense = TextEditingController();
-  Future<String> addStock() async {
-    final prefsTr = await SharedPreferences.getInstance();
-    final tokenn = prefsTr.getString('token');
-    print("_------------------");
+  TextEditingController product_quantity = TextEditingController();
+  TextEditingController product_selling_price = TextEditingController();
+  TextEditingController product_standard = TextEditingController();
+  TextEditingController product_expense = TextEditingController();
 
-    var request = await http.post(
-        Uri.parse('http://localhost:5000/api/product/manage'),
-        body: json.encode({
-          "product_quantity": productQuantity.text,
-          "product_selling_price": sellingPrice.text,
-          "product_standard": productStandard.text,
-          "product_expense": productExpense.text,
-        }),
-        headers: {
-          'Authorization': 'Bearer $tokenn',
-          'Content-Type': 'application/json'
-        });
-    if (request.statusCode == 200) {
-      print(json.decode(request.body));
-    } else {
-      print(request.reasonPhrase);
+  void stocko(
+    product_quantity,
+    product_selling_price,
+    product_standard,
+    product_expense,
+  ) async {
+    try {
+      final stockbo = json.encode({
+        "product_quantity": product_quantity,
+        'product_selling_price': product_selling_price,
+        "product_standard": product_standard,
+        "product_expense": product_expense,
+      });
+
+      final prefsTr = await SharedPreferences.getInstance();
+      final tokenn = prefsTr.getString('token');
+      print("_------------------");
+      print(tokenn);
+
+      var response =
+          await http.post(Uri.parse('http://localhost:5000/api/product/manage'),
+              headers: {
+                HttpHeaders.contentTypeHeader: 'application/json',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer $tokenn',
+              },
+              body: stockbo);
+      try {
+        if (response.statusCode == 200) {
+          print('product added');
+        } else {
+          print(response.statusCode);
+          print(response.body);
+          print('faild to load your product');
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    } catch (e) {
+      log(e.toString());
     }
-    return "";
   }
-
-  bool validateStructure(String value) {
-    String pattern = r'^([0-9])';
-    RegExp regExp = new RegExp(pattern);
-    return regExp.hasMatch(value);
-  }
-
-  String selectedBusiness = "";
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +111,7 @@ class _FormState extends State<stock_page> {
                       suffixIcon:
                           Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                     ),
-                    controller: productQuantity,
+                    controller: product_quantity,
                     keyboardType: TextInputType.text,
                   ),
                 ),
@@ -122,7 +135,7 @@ class _FormState extends State<stock_page> {
                       suffixIcon:
                           Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                     ),
-                    controller: sellingPrice,
+                    controller: product_selling_price,
                     keyboardType: TextInputType.text,
                   ),
                 ),
@@ -146,7 +159,7 @@ class _FormState extends State<stock_page> {
                       suffixIcon:
                           Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                     ),
-                    controller: productStandard,
+                    controller: product_standard,
                     keyboardType: TextInputType.text,
                   ),
                 ),
@@ -170,7 +183,7 @@ class _FormState extends State<stock_page> {
                       suffixIcon:
                           Icon(Icons.remove_red_eye, color: Color(0xFF5048E5)),
                     ),
-                    controller: productExpense,
+                    controller: product_expense,
                     keyboardType: TextInputType.text,
                   ),
                 ),
@@ -195,7 +208,12 @@ class _FormState extends State<stock_page> {
                     ),
                     child: MaterialButton(
                       onPressed: () async {
-                        addStock();
+                        stocko(
+                          product_quantity.text.toString(),
+                          product_selling_price.text.toString(),
+                          product_standard.text.toString(),
+                          product_expense.text.toString(),
+                        );
                       },
                       child: const Text(
                         "Submit",
